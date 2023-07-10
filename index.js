@@ -17,6 +17,7 @@ for(var buttom of buttons){
 
 document.addEventListener("keydown", function(event) {
     makeSounds(event.key);
+    buttonAnimation(event.key);
   });
 
 function handleClick(){
@@ -26,6 +27,7 @@ function handleClick(){
     //this.style.color ="white";
     var name = this.innerHTML;
     makeSounds(name);
+    buttonAnimation(name);
     // this används för att ta reda på vilket element som utlöser listener
     // man kan använda switch för att matcha olika ljudeffekt 
 }
@@ -42,13 +44,13 @@ function makeSounds(key){
         case 'w':
             audio = new Audio("sounds/crash.mp3");          
             break;
-         case 'a':
+        case 'a':
             audio = new Audio("sounds/kick-bass.mp3");
             break;
-         case 's':
+        case 's':
             audio = new Audio("sounds/snare.mp3");
             break;
-         case 'd':
+        case 'd':
             audio = new Audio("sounds/tom-1.mp3");
             break;
         case 'j':
@@ -66,10 +68,12 @@ function makeSounds(key){
     }
     if (audio !== null){
         audio.play();
-        document.querySelector("."+key).style.color = "white"; 
-        setTimeout(function() {
-            document.querySelector("."+key).style.color = "#DA0463";  
-          }, 300);
     }
 
+}
+
+function buttonAnimation(currentKey){
+    var activeButton = document.querySelector("."+currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(function(){activeButton.classList.remove("pressed")},300);
 }
